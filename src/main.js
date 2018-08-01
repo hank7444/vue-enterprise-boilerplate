@@ -4,6 +4,9 @@ import router from '@router'
 import store from '@state/store'
 import '@components/_globals'
 
+// eslint-disable-next-line no-use-before-define
+console.log('__SERVER_URL__', __SERVER_URL__);
+
 // Don't warn about using the dev version of Vue in development
 Vue.config.productionTip = process.env.NODE_ENV === 'production'
 
