@@ -55,6 +55,8 @@
     "babel-jest": "23.0.x",
     "babel-loader": "8.0.0-beta.2",
     "cross-env": "5.2.x",
+    "eslint": "^5.2.0",
+    "eslint-plugin-vue": "^4.7.1",
     "express": "4.16.x",
     "hygen": "1.6.x",
     "markdownlint-cli": "0.10.x",

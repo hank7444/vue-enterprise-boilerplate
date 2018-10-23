@@ -10,6 +10,10 @@ console.log('__SERVER_URL__', __SERVER_URL__);
 // Don't warn about using the dev version of Vue in development
 Vue.config.productionTip = process.env.NODE_ENV === 'production'
 
+/*
+  Difference between .$mount() and el [Vue JS]
+  https://stackoverflow.com/questions/46831452/difference-between-mount-and-el-vue-js
+*/
 const app = new Vue({
   router,
   store,

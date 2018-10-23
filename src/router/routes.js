@@ -1,20 +1,23 @@
 import store from '@state/store'
 
-export default [
-  {
+export default [{
     path: '/',
     name: 'home',
-    component: () => lazyLoadView(import('@views/home')),
+    component: () => lazyLoadView(
+      import ('@views/home')),
   },
   {
     path: '/login',
     name: 'login',
-    component: () => lazyLoadView(import('@views/login')),
+    component: () => lazyLoadView(
+      import ('@views/login')),
     beforeEnter(routeTo, routeFrom, next) {
       // If the user is already logged in
       if (store.getters['auth/loggedIn']) {
         // Redirect to the home page instead
-        next({ name: 'home' })
+        next({
+          name: 'home'
+        })
       } else {
         // Continue to the login page
         next()
@@ -24,23 +27,29 @@ export default [
   {
     path: '/profile',
     name: 'profile',
-    component: () => lazyLoadView(import('@views/profile')),
+    component: () => lazyLoadView(
+      import ('@views/profile')),
     meta: {
       authRequired: true,
     },
-    props: route => ({ user: store.state.auth.currentUser }),
+    props: route => ({
+      user: store.state.auth.currentUser
+    }),
   },
   {
     path: '/profile/:username',
     name: 'username-profile',
-    component: () => lazyLoadView(import('@views/profile')),
+    component: () => lazyLoadView(
+      import ('@views/profile')),
     meta: {
       authRequired: true,
     },
     beforeEnter(routeTo, routeFrom, next) {
       store
         // Try to fetch the user's information by their username
-        .dispatch('users/fetchUser', { username: routeTo.params.username })
+        .dispatch('users/fetchUser', {
+          username: routeTo.params.username
+        })
         .then(user => {
           // Add the user to the route params, so that it can
           // be provided as a prop for the view component below.
@@ -51,12 +60,19 @@ export default [
         .catch(() => {
           // If a user with the provided username could not be
           // found, redirect to the 404 page.
-          next({ name: '404', params: { resource: 'User' } })
+          next({
+            name: '404',
+            params: {
+              resource: 'User'
+            }
+          })
         })
     },
     // Set the user from the route params, once it's set in the
     // beforeEnter route guard.
-    props: route => ({ user: route.params.user }),
+    props: route => ({
+      user: route.params.user
+    }),
   },
   {
     path: '/logout',
@@ -70,7 +86,10 @@ export default [
         route => route.meta.authRequired
       )
       // Navigate back to previous page, or home as a fallback
-      next(authRequiredOnPreviousRoute ? { name: 'home' } : { ...routeFrom })
+      next(authRequiredOnPreviousRoute ? {
+        name: 'home'
+      } : { ...routeFrom
+      })
     },
   },
   {
@@ -111,7 +130,7 @@ function lazyLoadView(AsyncView) {
     loading: require('@views/loading').default,
     // A fallback component in case the timeout is exceeded
     // when loading the component.
-    error: require('@views/timeout').default,
+    error: require('@views/loading').default,
     // Delay before showing the loading component.
     // Default: 200 (milliseconds).
     delay: 400,
@@ -122,7 +141,10 @@ function lazyLoadView(AsyncView) {
 
   return Promise.resolve({
     functional: true,
-    render(h, { data, children }) {
+    render(h, {
+      data,
+      children
+    }) {
       // Transparently pass any props or children
       // to the view component.
       return h(AsyncHandler, data, children)

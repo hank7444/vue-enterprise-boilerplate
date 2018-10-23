@@ -12,9 +12,10 @@ export default {
 
 <template>
   <Layout>
+    <span class="globalClassName">1234</span>
     <transition appear>
       <BaseIcon
-        :class="$style.loadingIcon"
+        :class="$style.globalClassName"
         name="sync"
         spin
       />
@@ -24,6 +25,12 @@ export default {
 
 <style lang="scss" module>
 @import '@design';
+
+:global {
+  .globalClassName {
+    color: green;
+  }
+}
 
 .loadingIcon {
   @extend %typography-xxlarge;
